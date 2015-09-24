@@ -1,0 +1,21 @@
+<html>
+<head>
+<script src="https://cdn.firebase.com/js/client/2.2.9/firebase.js"></script>
+<script src="logger.js"></script>
+</head>
+<body>
+    <div>
+        <div class="hero">
+            <div class="container ">
+                <h1>CrowdFlower Launcher</h1>
+            </div>
+            <div class="container ">
+                <form ng-submit="submitForm()" class="ng-pristine ng-valid">
+                    <input type="password" ng-model="api_key" placeholder="your CrowdFlower API KEY" class="ng-pristine ng-untouched ng-valid">
+                    <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" value="">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
