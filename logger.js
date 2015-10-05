@@ -1,3 +1,18 @@
+// settings 
+var LOGGER = {
+	'firebase':{
+		'base': "https://cdn.firebase.com/",
+		'version':"2.2.9",
+		'bucket':"crowdworker-logger",
+		getScriptURL: function(){
+			return LOGGER.firebase.base+"js/client/"+LOGGER.firebase.version+"/firebase.js";
+		},
+		getBucketURL: function(){
+			return "https://"+LOGGER.firebase.bucket+".firebaseio.com/";
+		}
+	}
+}
+
 var isActive;
 
 window.onfocus = function() {
@@ -9,12 +24,12 @@ window.onblur = function() {
 };
 // Include Firebase library
 var firebase_script = document.createElement('script');
-firebase_script.src = 'https://cdn.firebase.com/js/client/2.2.9/firebase.js';
+firebase_script.src = LOGGER.firebase.getScript.getScriptURL();
 document.getElementsByTagName('head')[0].appendChild(firebase_script);
 
 // when Firebase library is loaded - initialize and use it
 firebase_script.onload = function() {
-    var firebase_reference = new Firebase("https://crowdworker-logger.firebaseio.com/trials");
+    var firebase_reference = new Firebase(LOGGER.firebase.getScript.getScriptURL()+"trials");
     // Log event to Firebase bucket
     firebase_reference.push({
         pathname: document.location.pathname,
