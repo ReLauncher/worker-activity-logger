@@ -12,6 +12,8 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
         init_firebase: function() {
             var firebase_script = document.createElement('script');
             firebase_script.src = "https://cdn.firebase.com/js/client/2.2.9/firebase.js";
+            console.log(firebase_script.src);
+            console.log(document.getElementsByTagName('head')[0]);
             document.getElementsByTagName('head')[0].appendChild(firebase_script);
             firebase_script.onload = function() {
                 _args["firebase_instance"] = new Firebase("https://crowdworker-logger.firebaseio.com/trials");
