@@ -7,13 +7,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
         init: function(Args) {
             _args = Args;
             // Include Firebase library
-            connect_firebase();
-            // some other initializing
-            // when Firebase library is loaded - initialize and use it
-            firebase_script.onload = function() {
-                var firebase_reference = new Firebase(LOGGER.firebase.getBucketURL() + "trials");
-                // Log event to Firebase bucket
-            };
+            init_firebase();
         },
         init_firebase: function() {
             var firebase_script = document.createElement('script');
