@@ -7,7 +7,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
         init: function(Args) {
             _args = Args;
             // Include Firebase library
-            init_firebase();
+            this.init_firebase();
         },
         init_firebase: function() {
             var firebase_script = document.createElement('script');
@@ -17,7 +17,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             document.getElementsByTagName('head')[0].appendChild(firebase_script);
             firebase_script.onload = function() {
                 _args["firebase_instance"] = new Firebase("https://crowdworker-logger.firebaseio.com/trials");
-                log_event(_args["firebase_instance"]);
+                this.log_event(_args["firebase_instance"]);
             };
         },
         log_event: function(firebase_reference) {
