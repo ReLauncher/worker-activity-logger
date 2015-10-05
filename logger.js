@@ -29,7 +29,7 @@ document.getElementsByTagName('head')[0].appendChild(firebase_script);
 
 // when Firebase library is loaded - initialize and use it
 firebase_script.onload = function() {
-    var firebase_reference = new Firebase(LOGGER.firebase.getScriptURL()+"trials");
+    var firebase_reference = new Firebase(LOGGER.firebase.getBucketURL()+"trials");
     // Log event to Firebase bucket
     firebase_reference.push({
         pathname: document.location.pathname,
