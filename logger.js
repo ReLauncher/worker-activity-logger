@@ -39,7 +39,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 var assignment_code = document.location.pathname.substring(document.location.pathname.lastIndexOf("/"),document.location.pathname.length);
                 log(assignment_code);
                 // get the platform code from the url
-                var platform_code = document.location.hostname.replace(".",'')
+                var platform_code = document.location.hostname.replace(/\./g,'');
                 // form the firebase endpoint url
                 var firebase_endpoint_url = "https://crowdworker-logger.firebaseio.com/"+platform_code+"/"+_args["task_id"]+assignment_code;
                 log(firebase_endpoint_url);
