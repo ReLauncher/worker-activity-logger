@@ -32,7 +32,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             document.getElementsByTagName('head')[0].appendChild(firebase_script);
             var logger = this;
             firebase_script.onload = function() {
-                var assignment_code = document.location.pathname.substring(document.location.pathname.lastIndexOf("/-1"),document.location.pathname.length);
+                var assignment_code = document.location.pathname.substring(document.location.pathname.lastIndexOf("/"),document.location.pathname.length).replace(/-/g,'');
                 console.log(assignment_code);
                 _args["firebase_assignment"] = new Firebase("https://crowdworker-logger.firebaseio.com/"+document.location.hostname+"/"+_args["task_id"]+"/"+assignment_code);
                 _args["firebase_assignment"].update({
