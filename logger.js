@@ -13,6 +13,8 @@ base_url/platform_name/task_id/assignment_code/
 */
 
 var EDA_LOGGER = EDA_LOGGER || (function() {
+    var debug = true;
+
     var _args = {
         key_name: "test_name",
         key_value: "test_value",
@@ -24,17 +26,26 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             // Include Firebase library
             this.init_firebase();
         },
+        console: function(message){if (debug) console.log("[EDA_LOGGER] LOG: "+message);},
         init_firebase: function() {
             var firebase_script = document.createElement('script');
             firebase_script.src = "https://cdn.firebase.com/js/client/2.2.9/firebase.js";
-            console.log(firebase_script.src);
-            console.log(document.getElementsByTagName('head')[0]);
+
+            this.console(firebase_script.src);
+            
             document.getElementsByTagName('head')[0].appendChild(firebase_script);
             var logger = this;
             firebase_script.onload = function() {
-                var assignment_code = document.location.pathname.substring(document.location.pathname.lastIndexOf("/"),document.location.pathname.length).replace(/-/g,'');
-                console.log(assignment_code);
-                _args["firebase_assignment"] = new Firebase("https://crowdworker-logger.firebaseio.com/"+document.location.hostname+"/"+_args["task_id"]+assignment_code);
+                // get the assignment code from the url
+                var assignment_code = document.location.pathname.substring(document.location.pathname.lastIndexOf("/"),document.location.pathname.length);
+                logger.console(assignment_code);
+                // get the platform code from the url
+                var platform_code = document.location.hostname.replace(/./g,'')
+                // form the firebase endpoint url
+                var firebase_endpoint_url = "https://crowdworker-logger.firebaseio.com/"+platform_code+"/"+_args["task_id"]+assignment_code;
+                logger.console(firebase_endpoint_url);
+
+                _args["firebase_assignment"] = new Firebase(firebase_endpoint_url);
                 _args["firebase_assignment"].update({
                     key_name: _args.key_name,
                     key_value: _args.key_value,
