@@ -1,7 +1,22 @@
+// Logs path:
+/*
+base_url/platform_name/task_id/assignment_code/
+
+{
+    key_name: "test_name",
+    key_value: "test_value",
+    worker_id: 0,
+    logs: [
+    ]
+}
+
+*/
+
 var EDA_LOGGER = EDA_LOGGER || (function() {
     var _args = {
         key_name: "test_name",
-        key_value: "test_value"
+        key_value: "test_value",
+        task_id: 0
     }; // private
     return {
         init: function(Args) {
@@ -15,19 +30,22 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             console.log(firebase_script.src);
             console.log(document.getElementsByTagName('head')[0]);
             document.getElementsByTagName('head')[0].appendChild(firebase_script);
+            var logger = this;
             firebase_script.onload = function() {
-                _args["firebase_instance"] = new Firebase("https://crowdworker-logger.firebaseio.com/trials");
-                this.log_event(_args["firebase_instance"]);
+                var assignment_code = document.location.pathname.substring(document.location.pathname.lastIndexOf("/-1"),document.location.pathname.length);
+                console.log(assignment_code);
+                _args["firebase_assignment"] = new Firebase("https://crowdworker-logger.firebaseio.com/"+document.location.hostname+"/"+_args["task_id"]+"/"+assignment_code);
+                _args["firebase_assignment"].update({
+                    key_name: _args.key_name,
+                    key_value: _args.key_value,
+                });
+                _args["firebase_logs"] = _args["firebase_assignment"].child('logs');
+                logger.log_event(_args["firebase_logs"]);
             };
         },
         log_event: function(firebase_reference) {
             firebase_reference.push({
-                pathname: document.location.pathname,
-                search: document.location.search,
-                hostname: document.location.hostname,
-                hash: document.location.hash,
-                key_name: _args.key_name,
-        		key_value: _args.key_value
+                status: 1
             });
         }
     };
