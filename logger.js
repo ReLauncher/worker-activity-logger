@@ -104,7 +104,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             // Warn if the browser doesn't support addEventListener or the Page Visibility API
             if (typeof document.addEventListener === "undefined" ||
                 typeof document[hidden] === "undefined") {
-                alert("This demo requires a browser, such as Google Chrome or Firefox, that supports the Page Visibility API.");
+                //alert("This demo requires a browser, such as Google Chrome or Firefox, that supports the Page Visibility API.");
             } else {
                 // Handle page visibility change   
                 document.addEventListener(visibilityChange, handleVisibilityChange, false);
