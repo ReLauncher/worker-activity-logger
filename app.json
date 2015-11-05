@@ -1,5 +1,5 @@
 {
-    "name": "Relauncher Logger ReferenceMaker",
+    "name": "Relauncher ReferenceMaker",
     "description": "Aapplication listening to a given Firebase bucket and fixing unit references.",
     "repository": "https://github.com/ReLauncher/worker-activity-logger",
     "logo": "https://avatars3.githubusercontent.com/u/14817691?v=3&s=200",
