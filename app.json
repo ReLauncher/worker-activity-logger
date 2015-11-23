@@ -8,6 +8,10 @@
         "HEROKU_URL": {
             "description": "The URL of this Heroku app.",
             "value": "http://YOURAPPNAME.herokuapp.com"
+        },
+        "CROWDFLOWER_API_KEY":{
+            "description" : "your API key from https://make.crowdflower.com/account/user",
+            "value":""
         }
     }
 }
