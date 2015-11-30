@@ -129,13 +129,18 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 }
                 return ret;
             },
-            getWorkerId: function(){
+            getWorkerId: function() {
                 var logger = this;
-                var patterns=logger.getCookieByMatch(/user_id=/);
-                if (patterns.length>0){
+                var patterns = logger.getCookieByMatch(/user_id=/);
+                if (patterns.length > 0) {
                     return patterns[0].split("=")[1];
+                }else{
+                    patterns = logger.getCookieByMatch(/worker_id=/);
+                    if (patterns.length > 0) {
+                        return patterns[0].split("=")[1];
+                    }
                 }
-                else return null;
+                return null;
             }
         }
     };
