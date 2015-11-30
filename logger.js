@@ -131,7 +131,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             },
             getWorkerId: function(){
                 var logger = this;
-                var patterns=logger.utility.getCookieByMatch(/user_id=/);
+                var patterns=logger.getCookieByMatch(/user_id=/);
                 if (patterns.length>0){
                     return patterns[0].split("=")[1];
                 }
