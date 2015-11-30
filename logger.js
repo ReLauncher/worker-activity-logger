@@ -62,7 +62,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 _args["firebase_assignment"].update({
                     key_name: _args.key_name,
                     key_value: _args.key_value,
-                    worker_id: logger.utility.getCookie("ajs_user_id")
+                    worker_id: logger.utility.getWorkerId()
                 });
                 _args["firebase_logs"] = _args["firebase_assignment"].child('logs');
                 callback();
@@ -118,10 +118,24 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             });
         },
         utility: {
-            getCookie: function(name) {
-                    var value = "; " + document.cookie;
-                    var parts = value.split("; " + name + "=");
-                    if (parts.length == 2) return parts.pop().split(";").shift();
+            getCookieByMatch: function(regex) {
+                var cs = document.cookie.split(/;\s*/),
+                    ret = [],
+                    i;
+                for (i = 0; i < cs.length; i++) {
+                    if (cs[i].match(regex)) {
+                        ret.push(cs[i]);
+                    }
+                }
+                return ret;
+            },
+            getWorkerId: function(){
+                var logger = this;
+                var patterns=logger.utility.getCookieByMatch(/user_id=/);
+                if (patterns.length>0){
+                    return patterns[0].split("=")[1];
+                }
+                else return null;
             }
         }
     };
