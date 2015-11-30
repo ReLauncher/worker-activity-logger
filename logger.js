@@ -61,8 +61,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 _args["firebase_assignment"] = new Firebase(firebase_endpoint_url);
                 _args["firebase_assignment"].update({
                     key_name: _args.key_name,
-                    key_value: _args.key_value,
-                    worker_id: logger.utility.getWorkerId()
+                    key_value: _args.key_value
                 });
                 _args["firebase_logs"] = _args["firebase_assignment"].child('logs');
                 callback();
@@ -116,32 +115,6 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 status: status,
                 dt: Firebase.ServerValue.TIMESTAMP
             });
-        },
-        utility: {
-            getCookieByMatch: function(regex) {
-                var cs = document.cookie.split(/;\s*/),
-                    ret = [],
-                    i;
-                for (i = 0; i < cs.length; i++) {
-                    if (cs[i].match(regex)) {
-                        ret.push(cs[i]);
-                    }
-                }
-                return ret;
-            },
-            getWorkerId: function() {
-                var logger = this;
-                var patterns = logger.getCookieByMatch(/user_id=/);
-                if (patterns.length > 0) {
-                    return patterns[0].split("=")[1];
-                }else{
-                    patterns = logger.getCookieByMatch(/worker_id=/);
-                    if (patterns.length > 0) {
-                        return patterns[0].split("=")[1];
-                    }
-                }
-                return null;
-            }
         }
     };
 }());
