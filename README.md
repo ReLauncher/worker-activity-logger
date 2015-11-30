@@ -1,6 +1,6 @@
 # worker-activity-logger
 
-#### To collect worker browser logs for your tasks:
+#### Setup worker browser logs collection for your tasks in 5 steps:
 
 1. fork this repository,
 2. create a bucket in [Firebase](https://www.firebase.com/) (it is free),
