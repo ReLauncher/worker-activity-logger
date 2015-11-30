@@ -1,4 +1,4 @@
-# worker-activity-logger
+# ReLauncher | Worker Activity Logger
 
 #### Setup worker browser logs collection for your tasks in 5 steps:
 
