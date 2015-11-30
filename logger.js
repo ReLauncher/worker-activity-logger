@@ -113,7 +113,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
         log_event: function(firebase_reference, status) {
             firebase_reference.push({
                 status: status,
-                dt: Date.now()
+                dt: Firebase.ServerValue.TIMESTAMP
             });
         }
     };
