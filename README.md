@@ -28,6 +28,6 @@
   </script>
   ```
 
-When you launch the job you should see logs appearing you in your firebase bucket. If you do not - check all the steps carefully. If it still does not work, create an *issue* in this repository.
+When you launch the job you should see logs appearing in your firebase bucket. If you do not - check all the steps carefully. If it still does not work, create an *issue* in this repository.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
