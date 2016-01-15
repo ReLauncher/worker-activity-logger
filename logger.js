@@ -66,7 +66,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                     key_value: _args.key_value,
                     unit_id: _args.key_value
                 });
-                _args["firebase_logs"] = _args["firebase_assignment"].child('logs');
+                _args["firebase_logs"] = _args["firebase_assignment"].child(settings.session+'/logs');
                 callback();
             };
         },
