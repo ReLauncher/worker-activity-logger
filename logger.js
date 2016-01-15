@@ -1,18 +1,7 @@
-// Logs path:
-/*
-base_url/platform_name/task_id/assignment_code/
-{
-    key_name: "test_name",
-    key_value: "test_value",
-    worker_id: 0,
-    logs: [
-    ]
-}
-*/
-
 var EDA_LOGGER = EDA_LOGGER || (function() {
     var settings = {
             session: Math.floor(Math.random() * 1000000) + 1,
+            activity_interval: 5000,
             debug: true,
             firebase: {
                 bucket: "crowdworker-logger"
@@ -57,7 +46,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 // get the platform code from the url
                 var platform_code = document.location.hostname.replace(/\./g, '');
                 // form the firebase endpoint url
-                var firebase_endpoint_url = "https://" + settings.firebase.bucket + ".firebaseio.com/" + platform_code + "/" + _args["task_id"] + "/units/"+_args['key_value']+"/assignments" + assignment_code;
+                var firebase_endpoint_url = "https://" + settings.firebase.bucket + ".firebaseio.com/" + platform_code + "/" + _args["task_id"] + "/units/" + _args['key_value'] + "/assignments" + assignment_code;
                 log(firebase_endpoint_url);
                 _args["firebase_assignment"] = new Firebase(firebase_endpoint_url);
                 /*_args["firebase_assignment"].update({
@@ -65,8 +54,38 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                     key_value: _args.key_value,
                     unit_id: _args.key_value
                 });*/
-                _args["firebase_logs"] = _args["firebase_assignment"].child('sessions/'+settings.session);
+                _args["firebase_logs"] = _args["firebase_assignment"].child('sessions/' + settings.session + "/tab_visibilty");
+                _args["firebase_activity"] = _args["firebase_assignment"].child('sessions/' + settings.session + "/page_activity");
+
                 callback();
+            };
+        },
+        init_activity_capturing: function() {
+            var logger = this;
+            var activity_statuses = {
+                "keyboard": 0,
+                "mouse": 0,
+                "scroll": 0,
+            };
+            setInterval(function() {
+                logger.log_event(_args["firebase_activity"], (function(a) {
+                    activity_statuses = {
+                        "keyboard": 0,
+                        "mouse": 0,
+                        "scroll": 0,
+                    };
+                    return a;
+                }(activity_statuses)));
+            }, settings.activity_interval);
+
+            document.onkeydown = function(evt) {
+                activity_statuses["keyboard"] = 1;
+            };
+            document.onmousemove = function(evt) {
+                activity_statuses["mouse"] = 1;
+            };
+            window.onscroll = function(evt) {
+                activity_statuses["mouse"] = 1;
             };
         },
         init_events_capturing: function() {
