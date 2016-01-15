@@ -57,9 +57,8 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 // get the platform code from the url
                 var platform_code = document.location.hostname.replace(/\./g, '');
                 // form the firebase endpoint url
-                var firebase_endpoint_url = "https://" + settings.firebase.bucket + ".firebaseio.com/" + platform_code + "/" + _args["task_id"] + assignment_code;
+                var firebase_endpoint_url = "https://" + settings.firebase.bucket + ".firebaseio.com/" + platform_code + "/" + _args["task_id"] + "/"+_args['key_value'] + assignment_code;
                 log(firebase_endpoint_url);
-
                 _args["firebase_assignment"] = new Firebase(firebase_endpoint_url);
                 _args["firebase_assignment"].update({
                     key_name: _args.key_name,
