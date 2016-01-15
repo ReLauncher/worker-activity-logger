@@ -60,11 +60,11 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 var firebase_endpoint_url = "https://" + settings.firebase.bucket + ".firebaseio.com/" + platform_code + "/" + _args["task_id"] + "/units/"+_args['key_value']+"/assignments" + assignment_code;
                 log(firebase_endpoint_url);
                 _args["firebase_assignment"] = new Firebase(firebase_endpoint_url);
-                _args["firebase_assignment"].update({
+                /*_args["firebase_assignment"].update({
                     key_name: _args.key_name,
                     key_value: _args.key_value,
                     unit_id: _args.key_value
-                });
+                });*/
                 _args["firebase_logs"] = _args["firebase_assignment"].child('sessions/'+settings.session);
                 callback();
             };
@@ -114,7 +114,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
         },
         log_event: function(firebase_reference, status) {
             firebase_reference.push({
-                session: settings.session,
+                //session: settings.session,
                 status: status,
                 dt: Firebase.ServerValue.TIMESTAMP
             });
