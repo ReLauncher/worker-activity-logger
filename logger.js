@@ -92,10 +92,14 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
         init_events_capturing: function() {
             var logger = this;
             // Log the task was opened by the worker
-            logger.log_event(_args["firebase_logs"], "opened");
+            logger.log_event(_args["firebase_logs"], {
+                status: "opened"
+            });
             // Log the task page was closed by the worker
             window.onbeforeunload = function() {
-                logger.log_event(_args["firebase_logs"], "closed");
+                logger.log_event(_args["firebase_logs"], {
+                    status: "closed"
+                });
             };
             logger.init_visibility_changes();
         },
@@ -118,9 +122,13 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
 
             function handleVisibilityChange() {
                 if (document[hidden]) {
-                    logger.log_event(_args["firebase_logs"], "hidden");
+                    logger.log_event(_args["firebase_logs"], {
+                        status: "hidden"
+                    });
                 } else {
-                    logger.log_event(_args["firebase_logs"], "active");
+                    logger.log_event(_args["firebase_logs"], {
+                        status: "active"
+                    });
                 }
             }
             // Warn if the browser doesn't support addEventListener or the Page Visibility API
@@ -132,12 +140,9 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 document.addEventListener(visibilityChange, handleVisibilityChange, false);
             }
         },
-        log_event: function(firebase_reference, status) {
-            firebase_reference.push({
-                //session: settings.session,
-                status: status,
-                dt: Firebase.ServerValue.TIMESTAMP
-            });
+        log_event: function(firebase_reference, data) {
+            data['dt'] = Firebase.ServerValue.TIMESTAMP;
+            firebase_reference.push(data);
         }
     };
 }());
