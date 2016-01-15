@@ -12,7 +12,7 @@ base_url/platform_name/task_id/assignment_code/
 
 var EDA_LOGGER = EDA_LOGGER || (function() {
     var settings = {
-            session: Math.floor(Math.random()*1000000) + 1,
+            session: Math.floor(Math.random() * 1000000) + 1,
             debug: true,
             firebase: {
                 bucket: "crowdworker-logger"
@@ -29,14 +29,14 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
 
     var _args = {
         key_name: "test_name",
-        key_value: "test_value",
-        task_id: parseInt(document.getElementById("assignment-job-id").innerHTML),
-        worker_id : parseInt(document.getElementById("assignment-worker-id").innerHTML)
+        key_value: "test_value"
     }; // private
     return {
         init: function(Args) {
             _args = Args;
-            // Include Firebase library
+            _args['task_id']: parseInt(document.getElementById("assignment-job-id").innerHTML);
+            _args['worker_id']: parseInt(document.getElementById("assignment-worker-id").innerHTML);
+                // Include Firebase library
             var logger = this;
             logger.init_firebase(function() {
                 logger.init_events_capturing();
@@ -64,7 +64,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 _args["firebase_assignment"].update({
                     key_name: _args.key_name,
                     key_value: _args.key_value,
-                    unit_id:_args.key_value
+                    unit_id: _args.key_value
                 });
                 _args["firebase_logs"] = _args["firebase_assignment"].child('logs');
                 callback();
