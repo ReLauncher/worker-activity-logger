@@ -30,7 +30,8 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
     var _args = {
         key_name: "test_name",
         key_value: "test_value",
-        task_id: 0
+        task_id: parseInt(document.getElementById("assignment-job-id").innerHTML),
+        worker_id : parseInt(document.getElementById("assignment-worker-id").innerHTML)
     }; // private
     return {
         init: function(Args) {
