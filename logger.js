@@ -12,6 +12,7 @@ base_url/platform_name/task_id/assignment_code/
 
 var EDA_LOGGER = EDA_LOGGER || (function() {
     var settings = {
+            session: Math.floor(Math.random()*1000000) + 1,
             debug: true,
             firebase: {
                 bucket: "crowdworker-logger"
@@ -113,6 +114,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
         },
         log_event: function(firebase_reference, status) {
             firebase_reference.push({
+                session: settings.session,
                 status: status,
                 dt: Firebase.ServerValue.TIMESTAMP
             });
