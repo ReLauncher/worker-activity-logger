@@ -61,7 +61,8 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 _args["firebase_assignment"] = new Firebase(firebase_endpoint_url);
                 _args["firebase_assignment"].update({
                     key_name: _args.key_name,
-                    key_value: _args.key_value
+                    key_value: _args.key_value,
+                    unit_id:_args.key_value
                 });
                 _args["firebase_logs"] = _args["firebase_assignment"].child('logs');
                 callback();
