@@ -29,6 +29,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             var logger = this;
             logger.init_firebase(function() {
                 logger.init_events_capturing();
+                logger.init_activity_capturing();
             });
         },
         init_firebase: function(callback) {
@@ -85,7 +86,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 activity_statuses["mouse"] = 1;
             };
             window.onscroll = function(evt) {
-                activity_statuses["mouse"] = 1;
+                activity_statuses["scroll"] = 1;
             };
         },
         init_events_capturing: function() {
