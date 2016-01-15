@@ -34,9 +34,9 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
     return {
         init: function(Args) {
             _args = Args;
-            _args['task_id']: parseInt(document.getElementById("assignment-job-id").innerHTML);
-            _args['worker_id']: parseInt(document.getElementById("assignment-worker-id").innerHTML);
-                // Include Firebase library
+            _args['task_id'] = parseInt(document.getElementById("assignment-job-id").innerHTML);
+            _args['worker_id'] = parseInt(document.getElementById("assignment-worker-id").innerHTML);
+            // Include Firebase library
             var logger = this;
             logger.init_firebase(function() {
                 logger.init_events_capturing();
