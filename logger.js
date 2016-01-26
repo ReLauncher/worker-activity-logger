@@ -1,7 +1,7 @@
 var EDA_LOGGER = EDA_LOGGER || (function() {
     var settings = {
             session: Math.floor(Math.random() * 1000000) + 1,
-            activity_interval: 5000,
+            activity_interval: 2000,
             debug: true,
             firebase: {
                 bucket: "crowdworker-logger"
@@ -68,6 +68,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 "keyboard": 0,
                 "mouse": 0,
                 "scroll": 0,
+                "scroll_top":0,
             };
             setInterval(function() {
                 logger.log_event(_args["firebase_activity"], (function(a) {
@@ -75,6 +76,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                         "keyboard": 0,
                         "mouse": 0,
                         "scroll": 0,
+                        "scroll_top":0
                     };
                     return a;
                 }(activity_statuses)));
@@ -88,6 +90,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             };
             window.onscroll = function(evt) {
                 activity_statuses["scroll"] = 1;
+                activity_statuses["scroll_top"] = document.body.scrollTop;
             };
 
             document.onkeydown = function() {
