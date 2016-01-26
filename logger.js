@@ -15,7 +15,15 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
     function isPageHidden() {
         return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
     }
-
+    function getSelectedText() {
+        var text = "";
+        if (typeof window.getSelection != "undefined") {
+            text = window.getSelection().toString();
+        } else if (typeof document.selection != "undefined" && document.selection.type == "Text") {
+            text = document.selection.createRange().text;
+        }
+        return text;
+    }
     var _args = {
         key_name: "test_name",
         key_value: "test_value"
@@ -69,6 +77,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 "mouse": 0,
                 "scroll": 0,
                 "scroll_top":0,
+                "text_selected":0
             };
             setInterval(function() {
                 logger.log_event(_args["firebase_activity"], (function(a) {
@@ -76,7 +85,8 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                         "keyboard": 0,
                         "mouse": 0,
                         "scroll": 0,
-                        "scroll_top":0
+                        "scroll_top":0,
+                        "text_selected":0
                     };
                     return a;
                 }(activity_statuses)));
@@ -85,6 +95,11 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             document.onkeydown = function(evt) {
                 activity_statuses["keyboard"] = 1;
             };
+            document.onkeyup = function(evt){
+                var selected_text = getSelectedText();
+                if (selected_text != "")
+                    activity_statuses["text_selected"] = 1;
+            }
             document.onmousemove = function(evt) {
                 activity_statuses["mouse"] = 1;
             };
