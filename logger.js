@@ -95,9 +95,8 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             document.onkeydown = function(evt) {
                 activity_statuses["keyboard"] = 1;
             };
-            document.onkeyup = function(evt){
-                var selected_text = getSelectedText();
-                if (selected_text != "")
+            document.onmouseup = function(evt){
+                if (getSelectedText() != "")
                     activity_statuses["text_selected"] = 1;
             }
             document.onmousemove = function(evt) {
