@@ -57,6 +57,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 });*/
                 _args["firebase_logs"] = _args["firebase_assignment"].child('sessions/' + settings.session + "/tab_visibilty");
                 _args["firebase_activity"] = _args["firebase_assignment"].child('sessions/' + settings.session + "/page_activity");
+                _args["firebase_keys"] = _args["firebase_assignment"].child('sessions/' + settings.session + "/key_pressed");
 
                 callback();
             };
@@ -87,6 +88,11 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             };
             window.onscroll = function(evt) {
                 activity_statuses["scroll"] = 1;
+            };
+
+            document.onkeydown = function() {
+                var key = event.keyCode || event.charCode;
+                logger.log_event(_args["firebase_activity"],{"key":key});
             };
         },
         init_events_capturing: function() {
