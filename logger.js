@@ -11,7 +11,24 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
     var log = function(message) {
         if (settings.debug) console.log("[EDA_LOGGER] LOG: " + message);
     };
-
+    function fullPath(el){
+        var names = [];
+        while (el.parentNode){
+            if (el.id){
+                names.unshift('#'+el.id);
+                break;
+            }else{
+                if (el==el.ownerDocument.documentElement) 
+                    names.unshift(el.tagName);
+                else{
+                    for (var c=1,e=el;e.previousElementSibling;e=e.previousElementSibling,c++);
+                        names.unshift(el.tagName+":nth-child("+c+")");
+                }
+                el=el.parentNode;
+            }
+        }
+        return names.join(" > ");
+    }
     function isPageHidden() {
         return document.hidden || document.msHidden || document.webkitHidden || document.mozHidden;
     }
@@ -66,6 +83,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
                 _args["firebase_logs"] = _args["firebase_assignment"].child('sessions/' + settings.session + "/tab_visibilty");
                 _args["firebase_activity"] = _args["firebase_assignment"].child('sessions/' + settings.session + "/page_activity");
                 _args["firebase_keys"] = _args["firebase_assignment"].child('sessions/' + settings.session + "/key_pressed");
+                _args["firebase_clicks"] = _args["firebase_assignment"].child('sessions/' + settings.session + "/clicks");
 
                 callback();
             };
@@ -102,14 +120,19 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             document.onmousemove = function(evt) {
                 activity_statuses["mouse"] = 1;
             };
+
             window.onscroll = function(evt) {
                 activity_statuses["scroll"] = 1;
                 activity_statuses["scroll_top"] = document.body.scrollTop;
             };
 
-            document.onkeydown = function() {
-                var key = event.keyCode || event.charCode;
+            document.onkeydown = function(evt) {
+                var key = evt.keyCode || evt.charCode;
                 logger.log_event(_args["firebase_keys"],{"key":key});
+            };
+            document.onmousedown = function(evt) {
+                var element_path = fullPath(evt.path[0]);
+                logger.log_event(_args["firebase_clicks"],{"element":element_path});
             };
         },
         init_events_capturing: function() {
