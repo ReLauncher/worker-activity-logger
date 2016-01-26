@@ -92,7 +92,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
 
             document.onkeydown = function() {
                 var key = event.keyCode || event.charCode;
-                logger.log_event(_args["firebase_activity"],{"key":key});
+                logger.log_event(_args["firebase_keys"],{"key":key});
             };
         },
         init_events_capturing: function() {
