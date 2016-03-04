@@ -30,4 +30,15 @@
 
 When you launch the job you should see logs appearing in your firebase bucket. If you do not - check all the steps carefully. If it still does not work, create an *issue* in this repository.
 
+- [ ] copy task with all units
+- [ ] make sure reward is as you wanted
+- [ ] change job_id in:
+    - [ ] unit_ids_maker.js
+    - [ ] queue_management.js
+- [ ] run unit_ids_maker.js (once)
+- [ ] run queue_management.js (keep it running during execution)
+- [ ] run ReLauncher server (npm start)
+- [ ] launch the job
+- [ ] start ReLauncher for this job
+
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
