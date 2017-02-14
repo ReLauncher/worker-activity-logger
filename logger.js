@@ -59,7 +59,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
         },
         init_firebase: function(callback) {
             var firebase_script = document.createElement('script');
-            firebase_script.src = "https://www.gstatic.com/firebasejs/3.6.9/firebase.js";
+            firebase_script.src = "https://cdn.firebase.com/js/client/2.2.9/firebase.js";
 
             log(firebase_script.src);
 
