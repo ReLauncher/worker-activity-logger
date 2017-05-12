@@ -1,0 +1,20 @@
+{
+  "name": "Relauncher-Logger-ReferenceMaker",
+  "version": "0.0.1",
+  "description": "",
+  "main": "unit_references_maker.js",
+  "engines": {
+    "node": "0.10.29"
+  },
+  "scripts": {
+    "start": "node unit_references_maker.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ReLauncher/worker-activity-logger.git"
+  },
+  "dependencies": {
+    "firebase":"2.3.1",
+    "requestify":"0.1.17"
+  }
+}
