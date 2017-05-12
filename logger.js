@@ -4,7 +4,7 @@ var EDA_LOGGER = EDA_LOGGER || (function() {
             activity_interval: 2000,
             debug: true,
             firebase: {
-                bucket: "IMAGE-TAGGING-APP"
+                bucket: "crowdworker-logger"
             }
         }
         // A log function which can be easily turned of using debug variable
